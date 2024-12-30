@@ -24,5 +24,4 @@ public class SimpleProduct extends Product {
         return getName() + ": " + getPrice();
     }
 
-
 }
