@@ -1,5 +1,9 @@
 package org.skypro.skyshop;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.skypro.skyshop.exception.BestResultNotFound;
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.*;
 import org.skypro.skyshop.search.SearchEngine;
@@ -18,6 +22,8 @@ public class App {
         searchEngine.addItem(banana);
         Product  orange = new DiscountedProduct("Апельсин", 150, 20);
         searchEngine.addItem(orange);
+        Product  orange1 = new DiscountedProduct("Апельсин", 150, 100);
+        searchEngine.addItem(orange1);
         Product  pear = new FixPriceProduct("Груша");
         searchEngine.addItem(pear);
         Product  watermelon = new DiscountedProduct("Арбуз", 300, 42);
@@ -76,6 +82,29 @@ public class App {
         System.out.println("Результаты поиска для \"" + query + "\":");
         for (Searchable item : searchEngine.search(query)) {
             System.out.println(item.getStringRepresentation());
+        }
+
+
+        try {
+            SimpleProduct product = new SimpleProduct("  ", 10);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            DiscountedProduct product = new DiscountedProduct("Product", 100, 120);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        List<Searchable> items = new ArrayList<>();
+        // Добавьте элементы в список items
+
+        try {
+            Searchable bestMatch = searchEngine.findBestMatch("searchTerm", items);
+            System.out.println("Найден лучший результат: " + bestMatch.getSearchTerm());
+        } catch (BestResultNotFound e) {
+            System.out.println(e.getMessage());
         }
 
     }
