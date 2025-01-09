@@ -50,8 +50,6 @@ public class App {
         basket.addProduct(pear);
         basket.addProduct(watermelon);
 
-        // Добавление продукта в заполненную корзину
-        basket.addProduct(new SimpleProduct("Вишня", 200)); // Попытка добавить лишний продукт
 
         // Печать содержимого корзины
         basket.printContents();
@@ -64,6 +62,9 @@ public class App {
 
         // Поиск товара, которого нет в корзине
         System.out.println("Есть ли манго: " + basket.hasProduct("Манго"));
+
+        // Уделение из корзины
+        basket.removeProductByName("Яблоко");
 
         // Очистка корзины
         basket.clearBasket();

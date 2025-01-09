@@ -2,16 +2,19 @@ package org.skypro.skyshop.basket;
 
 import org.skypro.skyshop.product.Product;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Iterator;
+
 public class ProductBasket {
-    private final Product[] products = new Product[5];
-    private int count = 0;
+    private final List<Product> products;
+
+    public ProductBasket() {
+        this.products = new ArrayList<>();
+    }
 
     public void addProduct(Product product) {
-        if (count < products.length) {
-            products[count++] = product;
-        } else {
-            System.out.println("Невозможно добавить продукт");
-        }
+        this.products.add(product);
     }
 
     public int getTotalCost() {
@@ -25,7 +28,7 @@ public class ProductBasket {
     }
 
     public void printContents() {
-        if (count == 0) {
+        if (products.size() == 0) {
             System.out.println("в корзине пусто");
             return;
         }
@@ -44,19 +47,32 @@ public class ProductBasket {
     }
 
     public boolean hasProduct(String productName) {
-        for (int i = 0; i < count; i++) {
-            if (products[i] != null && products[i].getName().equals(productName)) {
+        for (Product product : products) {
+            if (product != null && product.getName().equals(productName)) {
                 return true;
             }
         }
         return false;
     }
 
-    public void clearBasket() {
-        for (int i = 0; i < count; i++) {
-            products[i] = null;
+    public void removeProductByName(String name) {
+        List<Product> removedProducts = new ArrayList<>();
+        Iterator<Product> iterator = products.iterator();
+
+        while (iterator.hasNext()) {
+            Product product = iterator.next();
+            if (product.getName().equals(name)) {
+                removedProducts.add(product);
+                iterator.remove();
+            }
         }
-        count = 0;
-        System.out.println("Корзина очищенна");
+        System.out.println("Товар с наименование: '" + name + "' удален из корзины");
+        printContents();
     }
+
+    public void clearBasket() {
+        products.clear();
+    }
+
+
 }

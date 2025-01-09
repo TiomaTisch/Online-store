@@ -22,7 +22,6 @@ public class SearchEngine {
         for (Searchable item : searchableItems) {
             if (item.getSearchTerm().toLowerCase().contains(searchTerm.toLowerCase())) {
                 results.add(item);
-                if (results.size() >= 5) break; // Ограничиваем до 5 результатов
             }
         }
         return results;
