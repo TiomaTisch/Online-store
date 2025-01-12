@@ -28,11 +28,11 @@ public class SearchEngine {
         return results;
     }
 
-    public Searchable findBestMatch(String search, List<Searchable> items) throws BestResultNotFound {
+    public Searchable findBestMatch(String search) throws BestResultNotFound {
         Searchable bestMatch = null;
         int maxCount = 0;
 
-        for (Searchable item : items) {
+        for (Searchable item : searchableItems) {
             int count = countOccurrences(item.getSearchTerm(), search);
             if (count > maxCount) {
                 maxCount = count;
