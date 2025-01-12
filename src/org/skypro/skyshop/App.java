@@ -98,12 +98,9 @@ public class App {
             System.out.println(e.getMessage());
         }
 
-        List<Searchable> items = new ArrayList<>();
-        // Добавьте элементы в список items
-
         try {
-            Searchable bestMatch = searchEngine.findBestMatch("Груш");
-            System.out.println("Найден лучший результат: " + bestMatch.getSearchTerm());
+            List<Searchable> bestMatch = searchEngine.findBestMatch("Груш");
+            System.out.println("Найден лучший результат: " + bestMatch);
         } catch (BestResultNotFound e) {
             System.out.println(e.getMessage());
         }

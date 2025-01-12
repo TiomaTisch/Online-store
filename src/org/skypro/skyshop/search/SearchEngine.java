@@ -27,14 +27,14 @@ public class SearchEngine {
         return results;
     }
 
-    public Searchable findBestMatch(String search) throws BestResultNotFound {
+    public List<Searchable> findBestMatch(String search) throws BestResultNotFound {
         Searchable bestMatch = null;
-        int maxCount = 0;
+        List<Searchable> match = new ArrayList<>();
 
         for (Searchable item : searchableItems) {
             int count = countOccurrences(item.getSearchTerm(), search);
-            if (count > maxCount) {
-                maxCount = count;
+            if (count != 0) {
+                match.add(item);
                 bestMatch = item;
             }
         }
@@ -43,7 +43,7 @@ public class SearchEngine {
             throw new BestResultNotFound("Не найден подходящий объект для поискового запроса: " + search);
         }
 
-        return bestMatch;
+        return match;
     }
 
     private int countOccurrences(String text, String search) {
