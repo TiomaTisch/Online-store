@@ -55,7 +55,7 @@ public class ProductBasket {
         return false;
     }
 
-    public void removeProductByName(String name) {
+    public List<Product> removeProductByName(String name) {
         List<Product> removedProducts = new ArrayList<>();
         Iterator<Product> iterator = products.iterator();
 
@@ -66,8 +66,7 @@ public class ProductBasket {
                 iterator.remove();
             }
         }
-        System.out.println("Из корзины удалены:");
-        System.out.println(removedProducts);
+        return removedProducts;
     }
 
     public void clearBasket() {

@@ -102,7 +102,7 @@ public class App {
         // Добавьте элементы в список items
 
         try {
-            Searchable bestMatch = searchEngine.findBestMatch("searchTerm", items);
+            Searchable bestMatch = searchEngine.findBestMatch("Груш");
             System.out.println("Найден лучший результат: " + bestMatch.getSearchTerm());
         } catch (BestResultNotFound e) {
             System.out.println(e.getMessage());
