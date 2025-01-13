@@ -6,6 +6,9 @@ public class SimpleProduct extends Product {
 
     public SimpleProduct(String name, int regularPrice) {
         super(name); // Вызов конструктора родительского класса
+        if (regularPrice <= 0) {
+            throw new IllegalArgumentException("Цена продукта должна быть строго больше 0.");
+        }
         this.regularPrice = regularPrice; // Установка обычной цены
     }
 

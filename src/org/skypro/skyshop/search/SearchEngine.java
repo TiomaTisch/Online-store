@@ -4,6 +4,8 @@ package org.skypro.skyshop.search;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.skypro.skyshop.exception.BestResultNotFound;
+
 public class SearchEngine {
     private List<Searchable> searchableItems;
 
@@ -25,4 +27,37 @@ public class SearchEngine {
         }
         return results;
     }
+
+    public Searchable findBestMatch(String search) throws BestResultNotFound {
+        Searchable bestMatch = null;
+        int maxCount = 0;
+
+        for (Searchable item : searchableItems) {
+            int count = countOccurrences(item.getSearchTerm(), search);
+            if (count > maxCount) {
+                maxCount = count;
+                bestMatch = item;
+            }
+        }
+
+        if (bestMatch == null) {
+            throw new BestResultNotFound("Не найден подходящий объект для поискового запроса: " + search);
+        }
+
+        return bestMatch;
+    }
+
+    private int countOccurrences(String text, String search) {
+        int count = 0;
+        int index = 0;
+
+        while ((index = text.indexOf(search, index)) != -1) {
+            count++;
+            index++;
+        }
+
+        return count;
+    }
+
+
 }
