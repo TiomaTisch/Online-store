@@ -101,6 +101,7 @@ public class App {
         try {
             List<Searchable> bestMatch = searchEngine.findBestMatch("Груш");
             System.out.println("Найден лучший результат: " + bestMatch);
+
         } catch (BestResultNotFound e) {
             System.out.println(e.getMessage());
         }

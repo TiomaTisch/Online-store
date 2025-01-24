@@ -26,8 +26,8 @@ public class SearchEngine {
         }
         return results;
     }
-
     public List<Searchable> findBestMatch(String search) throws BestResultNotFound {
+
         Searchable bestMatch = null;
         List<Searchable> match = new ArrayList<>();
 
