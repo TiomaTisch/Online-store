@@ -2,6 +2,7 @@ package org.skypro.skyshop;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.skypro.skyshop.exception.BestResultNotFound;
 import org.skypro.skyshop.basket.ProductBasket;
@@ -80,11 +81,9 @@ public class App {
 
         // Поиск по термину
         String query = "Груш";
-        System.out.println("Результаты поиска для \"" + query + "\":");
-        for (Searchable item : searchEngine.search(query)) {
-            System.out.println(item.getStringRepresentation());
-        }
-
+        System.out.println("Результаты поиска для \"" +  query + " " + searchEngine.search(query) + "\":");
+        query = "Огурец";
+        System.out.println("Результаты поиска для \"" +  query + " " + searchEngine.search(query) + "\":");
 
         try {
             SimpleProduct product = new SimpleProduct("  ", 10);
