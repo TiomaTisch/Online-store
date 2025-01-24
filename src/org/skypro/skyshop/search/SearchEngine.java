@@ -22,20 +22,19 @@ public class SearchEngine {
         for (Searchable item : searchableItems) {
             if (item.getSearchTerm().toLowerCase().contains(searchTerm.toLowerCase())) {
                 results.add(item);
-                if (results.size() >= 5) break; // Ограничиваем до 5 результатов
             }
         }
         return results;
     }
+    public List<Searchable> findBestMatch(String search) throws BestResultNotFound {
 
-    public Searchable findBestMatch(String search) throws BestResultNotFound {
         Searchable bestMatch = null;
-        int maxCount = 0;
+        List<Searchable> match = new ArrayList<>();
 
         for (Searchable item : searchableItems) {
             int count = countOccurrences(item.getSearchTerm(), search);
-            if (count > maxCount) {
-                maxCount = count;
+            if (count != 0) {
+                match.add(item);
                 bestMatch = item;
             }
         }
@@ -44,7 +43,7 @@ public class SearchEngine {
             throw new BestResultNotFound("Не найден подходящий объект для поискового запроса: " + search);
         }
 
-        return bestMatch;
+        return match;
     }
 
     private int countOccurrences(String text, String search) {
