@@ -1,29 +1,26 @@
 package org.skypro.skyshop.search;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 import org.skypro.skyshop.exception.BestResultNotFound;
 
 public class SearchEngine {
-    private List<Searchable> searchableItems;
+    private Set<Searchable> searchableItems;
 
     public SearchEngine() {
-        searchableItems = new ArrayList<>();
+        searchableItems = new HashSet<>();
     }
 
     public void addItem(Searchable item) {
         searchableItems.add(item);
     }
 
-    public Map<String, Searchable> search(String searchTerm) {
-        Map<String, Searchable> results = new TreeMap<>();
+    public TreeSet<Searchable> search(String searchTerm) {
+        TreeSet<Searchable> results = new TreeSet<>(new SearchableComparator());
         for (Searchable item : searchableItems) {
             if (item.getSearchTerm().toLowerCase().contains(searchTerm.toLowerCase())) {
-                results.put(item.getName(), item);;
+                results.add(item);;
             }
         }
         return results ;
