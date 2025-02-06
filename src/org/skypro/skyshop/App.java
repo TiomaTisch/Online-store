@@ -74,7 +74,7 @@ public class App {
         basket.printContents();
 
         // Получение стоимости пустой корзины
-        System.out.println("Стоимость пустой корзины: " + basket.getTotalCost());
+        basket.getTotalCost();
 
         // Поиск товара по имени в пустой корзине
         System.out.println("Есть ли яблоко: " + basket.hasProduct("Яблоко"));
