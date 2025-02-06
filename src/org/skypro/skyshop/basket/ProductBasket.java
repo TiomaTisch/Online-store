@@ -13,25 +13,23 @@ public class ProductBasket {
 
     public void addProduct(Product product) {
         String productName = product.getName();
-        // Если продукты с таким именем уже есть, добавляем в список
-        if (products.containsKey(productName)) {
-            products.get(productName).add(product);
-        } else {
-            // Если нет, создаем новый список
-            List<Product> productList = new ArrayList<>();
-            productList.add(product);
-            products.put(productName, productList);
-        }
+//        // Если продукты с таким именем уже есть, добавляем в список
+//        if (products.containsKey(productName)) {
+//            products.get(productName).add(product);
+//        } else {
+//            // Если нет, создаем новый список
+//            List<Product> productList = new ArrayList<>();
+//            productList.add(product);
+//            products.put(productName, productList);
+//        }
+        products.computeIfAbsent(productName, k -> new ArrayList<>()).add(product);
     }
 
     public double getTotalCost() {
-        double totalCost = 0.0;
-        for (List<Product> productList : products.values()) {
-            for (Product product : productList) {
-                totalCost += product.getPrice();
-            }
-        }
-        return totalCost;
+        return products.values().stream()
+                .flatMap(Collection::stream)
+                .mapToDouble(Product::getPrice)
+                .sum();
     }
 
     public void printContents() {
@@ -40,17 +38,26 @@ public class ProductBasket {
             return;
         }
 
-        int specialProductCount = 0;
-        for (List<Product> productList : products.values()) {
-            for (Product product : productList) {
-                if (product != null) {
-                    System.out.println(product);
-                    if (product.isSpecial()) {
-                        specialProductCount++;
-                    }
-                }
-            }
-        }
+//        int specialProductCount = 0;
+//        for (List<Product> productList : products.values()) {
+//            for (Product product : productList) {
+//                if (product != null) {
+//                    System.out.println(product);
+//                    if (product.isSpecial()) {
+//                        specialProductCount++;
+//                    }
+//                }
+//            }
+//        }
+
+        products.values().stream()
+                .flatMap(Collection::stream)
+                .forEach(System.out::println);
+
+        int specialProductCount = (int) products.values().stream()
+                .flatMap(Collection::stream)
+                .filter(Product::isSpecial)
+                .count();
         System.out.println("Итого: " + getTotalCost());
         System.out.println("Специальных товаров: " + specialProductCount);
     }
